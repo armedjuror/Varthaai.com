@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varthaai - Coming Soon</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Rock+Salt&family=Gochi+Hand&display=swap" rel="stylesheet">
+    <style>
+        body{
+            font-family: 'Gloria Hallelujah', cursive;
+        }
+        .brand-font {
+            font-family: 'Gochi Hand', cursive;
+        }
+        .golden-text {
+            color: #FFD700;
+        }
+        .chips-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+        .error {
+                    color: red;
+                    font-size: 14px;
+                    margin-top: 5px;
+                    display: none;
+                }
+        @media (max-width: 640px) {
+            .chips-container {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-black min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-2xl mx-auto text-center">
+        <div class="chips-container">
+            <img src="img/varthaai.png">
+        </div>
+
+        <h1 class="brand-font golden-text text-6xl md:text-8xl mb-4 transform hover:scale-105 transition-transform duration-300">
+            Varthaai
+        </h1>
+
+        <p class="tagline-font golden-text text-2xl md:text-3xl mb-12 opacity-90">
+            A Kerala Crunchy Tale
+        </p>
+
+        <div class="space-y-4">
+            <p class="text-gray-300 text-lg mb-8 text-font text-xl">
+                Something crispy is coming your way...
+            </p>
+
+            <form class="max-w-md mx-auto space-y-4 p-6 bg-gray-900 rounded-lg shadow-xl" id="waitlistForm">
+                <div class="flex flex-col space-y-2">
+                    <input type="tel"
+                           placeholder="Enter Your WhatsApp Number "
+                           class="px-4 py-3 rounded bg-gray-800 text-white border border-gray-700 focus:border-yellow-500 focus:outline-none text-font"
+                            id="whatsappNumber" name="whatsappNumber" required
+                           required>
+                    <label for="whatsappNumber" class="text-gray-400 text-left">Format: +CountryCode PhoneNumber</label>
+                    <div id="errorMsg" class="error"></div>
+                </div>
+
+                <button
+                    type="submit"
+                        class="g-recaptcha w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-4 rounded transition duration-300 text-font text-xl">
+                    Notify Me
+                </button>
+
+                <p class="text-gray-400 text-sm text-font">
+                    We'll WhatsApp you when we launch!
+                </p>
+            </form>
+        </div>
+    </div>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfaM2kqAAAAAK0wiL4tuYtOiWEjXLhlIuzxnH5e"></script>
+
+    <script>
+    const phoneInput = document.getElementById("whatsappNumber");
+    const errorMsg = document.getElementById("errorMsg");
+
+    function onSubmit(token) {
+        fetch('https://script.google.com/macros/s/AKfycbz-5xOjS27jG809_IwKNm5qmw27iiQRP02RrwIs2XA3WICwtdChsaSJ6WR4DlV-J2ErIw/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                whatsappNumber: phoneInput.value
+            })
+        })
+        .then(() => {
+            alert('Successfully submitted!');
+            document.getElementById('whatsappForm').reset();
+            iti.setCountry("us");
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        });
+    }
+
+        document.getElementById('waitlistForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            grecaptcha.ready(function() {
+                grecaptcha.execute('reCAPTCHA_site_key', {action: 'submit'}).then(function(token) {
+                  fetch('https://script.google.com/macros/s/AKfycbz-5xOjS27jG809_IwKNm5qmw27iiQRP02RrwIs2XA3WICwtdChsaSJ6WR4DlV-J2ErIw/exec', {
+                      method: 'POST',
+                      mode: 'no-cors',
+                      headers: {
+                          'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                          whatsappNumber: phoneInput.value
+                      })
+                  })
+                  .then(() => {
+                      alert('Successfully submitted!');
+                      document.getElementById('whatsappForm').reset();
+                      iti.setCountry("us");
+                  })
+                  .catch(error => {
+                      console.error('Error:', error);
+                      alert('An error occurred. Please try again.');
+                  });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
