@@ -142,13 +142,14 @@
         })
         .then(() => {
             alert('Successfully submitted!');
-            document.getElementById('phoneInput').value="";
+            document.getElementById('waitlistForm').reset();
+            $('#loader').fadeOut()
         })
         .catch(error => {
             console.error('Error:', error);
             alert('An error occurred. Please try again.');
+            $('#loader').fadeOut()
         });
-        $('#loader').fadeOut()
     }
 
         // document.getElementById('waitlistForm').addEventListener('submit', function(e) {
