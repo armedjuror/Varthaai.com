@@ -130,6 +130,15 @@
 
     function onSubmit(token) {
         $('#loader').fadeIn()
+        const pattern = /^\+\d{1,3} \d{7,14}$/;
+        if (!pattern.test(phoneInput.value)){
+          alert("Invalid Phone Number")
+          document.getElementById('waitlistForm').reset();
+          $('#loader').fadeOut()
+          return
+        }
+
+
         fetch('https://script.google.com/macros/s/AKfycbz-5xOjS27jG809_IwKNm5qmw27iiQRP02RrwIs2XA3WICwtdChsaSJ6WR4DlV-J2ErIw/exec', {
             method: 'POST',
             mode: 'no-cors',
@@ -151,33 +160,6 @@
             $('#loader').fadeOut()
         });
     }
-
-        // document.getElementById('waitlistForm').addEventListener('submit', function(e) {
-        //     e.preventDefault();
-        //     grecaptcha.ready(function() {
-        //         grecaptcha.execute('6LfaM2kqAAAAAK0wiL4tuYtOiWEjXLhlIuzxnH5e', {action: 'submit'}).then(function(token) {
-        //           fetch('https://script.google.com/macros/s/AKfycbz-5xOjS27jG809_IwKNm5qmw27iiQRP02RrwIs2XA3WICwtdChsaSJ6WR4DlV-J2ErIw/exec', {
-        //               method: 'POST',
-        //               mode: 'no-cors',
-        //               headers: {
-        //                   'Content-Type': 'application/json',
-        //               },
-        //               body: JSON.stringify({
-        //                   whatsappNumber: phoneInput.value
-        //               })
-        //           })
-        //           .then(() => {
-        //               alert('Successfully submitted!');
-        //               document.getElementById('whatsappForm').reset();
-        //               iti.setCountry("us");
-        //           })
-        //           .catch(error => {
-        //               console.error('Error:', error);
-        //               alert('An error occurred. Please try again.');
-        //           });
-        //         });
-        //     });
-        // });
     </script>
 </body>
 </html>
