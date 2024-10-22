@@ -70,6 +70,8 @@
 
                 <button
                     type="submit"
+                    data-sitekey="reCAPTCHA_6LfaM2kqAAAAAK0wiL4tuYtOiWEjXLhlIuzxnH5e"
+                    data-callback='onSubmit'
                         class="g-recaptcha w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-4 rounded transition duration-300 text-font text-xl">
                     Notify Me
                 </button>
@@ -80,8 +82,7 @@
             </form>
         </div>
     </div>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LfaM2kqAAAAAK0wiL4tuYtOiWEjXLhlIuzxnH5e"></script>
-
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <script>
     const phoneInput = document.getElementById("whatsappNumber");
     const errorMsg = document.getElementById("errorMsg");
@@ -108,32 +109,32 @@
         });
     }
 
-        document.getElementById('waitlistForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            grecaptcha.ready(function() {
-                grecaptcha.execute('6LfaM2kqAAAAAK0wiL4tuYtOiWEjXLhlIuzxnH5e', {action: 'submit'}).then(function(token) {
-                  fetch('https://script.google.com/macros/s/AKfycbz-5xOjS27jG809_IwKNm5qmw27iiQRP02RrwIs2XA3WICwtdChsaSJ6WR4DlV-J2ErIw/exec', {
-                      method: 'POST',
-                      mode: 'no-cors',
-                      headers: {
-                          'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({
-                          whatsappNumber: phoneInput.value
-                      })
-                  })
-                  .then(() => {
-                      alert('Successfully submitted!');
-                      document.getElementById('whatsappForm').reset();
-                      iti.setCountry("us");
-                  })
-                  .catch(error => {
-                      console.error('Error:', error);
-                      alert('An error occurred. Please try again.');
-                  });
-                });
-            });
-        });
+        // document.getElementById('waitlistForm').addEventListener('submit', function(e) {
+        //     e.preventDefault();
+        //     grecaptcha.ready(function() {
+        //         grecaptcha.execute('6LfaM2kqAAAAAK0wiL4tuYtOiWEjXLhlIuzxnH5e', {action: 'submit'}).then(function(token) {
+        //           fetch('https://script.google.com/macros/s/AKfycbz-5xOjS27jG809_IwKNm5qmw27iiQRP02RrwIs2XA3WICwtdChsaSJ6WR4DlV-J2ErIw/exec', {
+        //               method: 'POST',
+        //               mode: 'no-cors',
+        //               headers: {
+        //                   'Content-Type': 'application/json',
+        //               },
+        //               body: JSON.stringify({
+        //                   whatsappNumber: phoneInput.value
+        //               })
+        //           })
+        //           .then(() => {
+        //               alert('Successfully submitted!');
+        //               document.getElementById('whatsappForm').reset();
+        //               iti.setCountry("us");
+        //           })
+        //           .catch(error => {
+        //               console.error('Error:', error);
+        //               alert('An error occurred. Please try again.');
+        //           });
+        //         });
+        //     });
+        // });
     </script>
 </body>
 </html>
